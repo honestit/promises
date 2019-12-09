@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -25,4 +27,7 @@ public class User {
     private Boolean active = Boolean.FALSE;
     @Column(nullable = false)
     private String password;
+
+    @ManyToMany
+    private Set<Role> roles = new HashSet<>();
 }
