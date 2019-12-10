@@ -4,21 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "friends")
-@Getter @Setter @ToString(callSuper = true)
+@Getter @Setter @ToString(callSuper = true, exclude = {"account", "owner"})
 public class Friend extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
     private String email;
-    @ManyToOne(optional = true)
+    @ManyToOne
+    @JoinColumn(name = "account_id")
     private User account;
     @ManyToOne(optional = true)
+    @JoinColumn(name = "owner_id")
     private User owner;
 }
