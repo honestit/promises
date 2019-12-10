@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -53,7 +54,8 @@
                                 <strong>Account</strong>
                             </a>
                             <form method="post" action="/logout">
-                                <button class="button is-link" type="submit">Wyloguj</button>
+                                <button class="button is-link" type="submit">Logout</button>
+                                <sec:csrfInput/>
                             </form>
                         </div>
                     </div>
@@ -126,7 +128,7 @@
                             <button class="button is-text" type="reset">Reset</button>
                         </div>
                     </div>
-                    <form:errors path="*"/>
+                    <sec:csrfInput/>
                 </form:form>
             </div>
             <div class="column">

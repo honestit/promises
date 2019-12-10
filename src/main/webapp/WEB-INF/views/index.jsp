@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -48,12 +49,15 @@
                             <a class="button is-success" href="/login">
                                 <strong>Login</strong>
                             </a>
-                            <a class="button is-primary" href="/account">
-                                <strong>Account</strong>
-                            </a>
-                            <form method="post" action="/logout">
-                                <button class="button is-link" type="submit">Wyloguj</button>
-                            </form>
+                            <sec:authorize access="isAuthenticated()">
+                                <a class="button is-primary" href="/user">
+                                    <strong>Account</strong>
+                                </a>
+                                <form method="post" action="/logout">
+                                    <button class="button is-link" type="submit">Logout</button>
+                                    <sec:csrfInput/>
+                                </form>
+                            </sec:authorize>
                         </div>
                     </div>
                 </div>
