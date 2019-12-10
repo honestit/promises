@@ -1,5 +1,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<header>--%>
@@ -8,7 +9,7 @@
         <div class="navbar-item">
             <c:url var="homeURL" value="/"/>
             <a class="navbar-item button" href="${homeURL}">
-                Home
+                <spring:message code="pages.menu.links.main"/>
             </a>
         </div>
     </div>
@@ -19,7 +20,7 @@
 
                     <c:url var="accountURL" value="/user"/>
                     <a class="navbar-item button" href="${accountURL}">
-                        Account
+                        <spring:message code="pages.menu.links.account"/>
                     </a>
 
                 </div>
@@ -33,11 +34,11 @@
 
                         <c:url var="registerURL" value="/register"/>
                         <a class="button is-primary" href="${registerURL}">
-                            <strong>Register</strong>
+                            <strong><spring:message code="pages.menu.links.register"/></strong>
                         </a>
                         <c:url var="loginURL" value="/login"/>
                         <a class="button is-success" href="${loginURL}">
-                            <strong>Login</strong>
+                            <strong><spring:message code="pages.menu.links.login"/></strong>
                         </a>
 
                     </sec:authorize>
@@ -45,7 +46,7 @@
 
                         <c:url var="logoutURL" value="/logout"/>
                         <form method="post" action="${logoutURL}">
-                            <button class="button is-link" type="submit">Logout</button>
+                            <button class="button is-link" type="submit"><spring:message code="pages.menu.links.logout"/></button>
                             <sec:csrfInput/>
                         </form>
 
