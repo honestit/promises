@@ -13,12 +13,9 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Getter @Setter
-@ToString(exclude = "password") @EqualsAndHashCode(of = "id")
-public class User {
+@ToString(exclude = "password", callSuper = true)
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false, unique = true)
