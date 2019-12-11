@@ -17,18 +17,14 @@
 </header>
 <section class="section">
     <div class="container">
-        <h1 class="title">
-            <s:message code="pages.register.form.title.main"/>
-        </h1>
-        <h2 class="subtitle">
-            <s:message code="pages.register.form.title.sub"/>
-        </h2>
-    </div>
-</section>
-<section class="section">
-    <div class="container">
         <div class="columns">
-            <div class="column"></div>
+            <div class="column">
+                <h1 class="title">
+                    <s:message code="pages.register.form.title.main"/>
+                </h1>
+                <h2 class="subtitle">
+                    <s:message code="pages.register.form.title.sub"/>
+                </h2></div>
             <div class="column">
                 <form:form method="post" modelAttribute="registrationData">
                     <div class="field">
