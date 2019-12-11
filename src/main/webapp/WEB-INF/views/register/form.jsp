@@ -34,34 +34,39 @@
                     <div class="field">
                         <form:label path="username" cssClass="label"><s:message code="global.username"/></form:label>
                         <div class="control has-icons-left">
-                            <form:input path="username" cssClass="input" required="true"/>
+                            <s:message code="pages.register.form.helps.username" var="usernamePlaceholder"/>
+                            <form:input path="username" cssClass="input" required="true" placeholder="${usernamePlaceholder}"/>
                             <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
-                            <p class="help"><s:message code="pages.register.form.helps.username"/></p>
+                            <form:errors path="username" element="p" cssClass="help is-danger"/>
                         </div>
                     </div>
                     <div class="field">
                         <form:label path="email" cssClass="label"><s:message code="global.email"/></form:label>
                         <div class="control has-icons-left">
-                            <form:input path="email" cssClass="input" required="true"/>
+                            <s:message code="pages.register.form.helps.email" var="emailPlaceholder"/>
+                            <form:input path="email" cssClass="input" required="true" placeholder="${emailPlaceholder}"/>
                             <span class="icon is-small is-left"><i
                                     class="fas fa-envelope"></i></span>
-                            <p class="help"><s:message code="pages.register.form.helps.username"/></p>
+                            <form:errors path="email" element="p" cssClass="help is-danger"/>
                         </div>
                     </div>
                     <div class="field">
                         <form:label path="password" cssClass="label"><s:message code="global.password"/></form:label>
                         <div class="control has-icons-left">
-                            <form:password path="password" cssClass="input" required="true"/>
+                            <s:message code="pages.register.form.helps.password" var="passwordPlaceholder"/>
+                            <form:password path="password" cssClass="input" required="true" placeholder="${passwordPlaceholder}"/>
                             <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
-                            <p class="help"><s:message code="pages.register.form.helps.password"/></p>
+                            <form:errors path="password" element="p" cssClass="help is-danger"/>
                         </div>
                     </div>
                     <div class="field">
                         <form:label path="rePassword" cssClass="label"><s:message code="global.re-password"/></form:label>
                         <div class="control has-icons-left">
-                            <form:password path="rePassword" cssClass="input" required="true"/>
+                            <s:message code="pages.register.form.helps.re-password" var="rePasswordPlaceholder"/>
+                            <form:password path="rePassword" cssClass="input" required="true" placeholder="${rePasswordPlaceholder}"/>
                             <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
-                            <p class="help"><s:message code="pages.register.form.helps.re-password"/></p>
+                            <p class="help is-dange"></p>
+                            <form:errors path="rePassword" element="p" cssClass="help is-danger"/>
                         </div>
                     </div>
                     <div class="field">
@@ -69,6 +74,7 @@
                                     cssClass="checkbox">
                             <form:checkbox path="termsAcceptance"
                                            required="true"/> <s:message code="pages.register.form.helps.terms"/></form:label>
+                        <form:errors path="termsAcceptance" element="p" cssClass="help is-danger"/>
                     </div>
                     <div class="field is-grouped">
                         <div class="control">
