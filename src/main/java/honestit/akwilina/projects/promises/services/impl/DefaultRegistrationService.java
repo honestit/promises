@@ -7,13 +7,14 @@ import honestit.akwilina.projects.promises.domain.repositories.RoleRepository;
 import honestit.akwilina.projects.promises.domain.repositories.UserRepository;
 import honestit.akwilina.projects.promises.dtos.RegistrationDataDTO;
 import honestit.akwilina.projects.promises.services.RegistrationService;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional @Slf4j
 public class DefaultRegistrationService implements RegistrationService {
 
     private final PasswordEncoder passwordEncoder;
@@ -31,13 +32,16 @@ public class DefaultRegistrationService implements RegistrationService {
 
     @Override
     public void register(RegistrationDataDTO registrationData) {
+        log.debug("Registration data to create user: {}", registrationData);
         User user = modelMapper.map(registrationData, User.class);
+        log.debug("User after mapping from registrationData: {}", user);
         user.setActive(Boolean.TRUE);
         String encodedPassword = passwordEncoder.encode(registrationData.getPassword());
         user.setPassword(encodedPassword);
         Role roleUser = roleRepository.getByName("ROLE_USER");
         user.getRoles().add(roleUser);
+        log.debug("User before save: {}", user);
         userRepository.save(user);
-
+        log.debug("User after save: {}", user);
     }
 }
