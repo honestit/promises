@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -29,6 +30,6 @@ public class GivePromiseController {
         }
         userService.givePromise(givenPromiseDTO);
         log.info("Another promise has been given!");
-        return "redirect:/";
+        return "redirect:/?youPromise";
     }
 }

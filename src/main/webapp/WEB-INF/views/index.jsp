@@ -2,6 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -16,108 +17,118 @@
 <header>
     <jsp:include page="/WEB-INF/views/fragments/main-menu.jsp"/>
 </header>
-<section class="section">
-    <div class="container">
-        <h1 class="title">
-            <spring:message code="pages.index.body.title.main"/>
-        </h1>
-        <h2 class="subtitle">
-            <spring:message code="pages.index.body.title.sub"/>
-        </h2>
-    </div>
-</section>
 <sec:authorize access="hasRole('USER')">
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-12">
+                <div class="column is-6">
+                    <h1 class="title">
+                        <spring:message code="pages.index.body.title.main"/>
+                    </h1>
+                    <h2 class="subtitle">
+                        <spring:message code="pages.index.body.title.sub"/>
+                    </h2>
+                    <c:if test="${param['youPromise'] != null}">
+                        <div class="notification is-success">
+                            You promise!
+                        </div>
+                    </c:if>
                     <form:form modelAttribute="givenPromise" method="post" action="/promises">
-                    <div class="field is-grouped">
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <form:label path="whom" cssClass="label"><s:message
-                                        code="pages.index.promise.whom"/></form:label>
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="field">
+                                <div class="field-label is-large has-text-left">
+                                    <form:label path="whom" cssClass="label"><s:message
+                                            code="pages.index.promise.whom"/></form:label>
+                                </div>
+                                <div class="field-body is-large">
+                                    <div class="control has-icons-left">
+                                        <s:message code="pages.index.promise.whom.help"
+                                                   var="promiseWhomPlaceholder"/>
+                                        <form:input path="whom" cssClass="input" required="true"
+                                                    placeholder="${promiseWhomPlaceholder}"/>
+                                        <span class="icon is-small is-left"><i
+                                                class="fas fa-user"></i></span>
+                                        <p class="help is-danger"></p>
+                                        <form:errors path="name" element="p"
+                                                     cssClass="help is-danger"/>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="field-body is-large">
-                                <div class="control has-icons-left">
-                                    <s:message code="pages.index.promise.whom.help"
-                                               var="promiseWhomPlaceholder"/>
-                                    <form:input path="whom" cssClass="input" required="true"
-                                                placeholder="${promiseWhomPlaceholder}"/>
-                                    <span class="icon is-small is-left"><i
-                                            class="fas fa-user"></i></span>
-                                    <p class="help is-danger"></p>
-                                    <form:errors path="name" element="p" cssClass="help is-danger"/>
+                            <div class="field" style="margin-left: 1em;">
+                                <div class="field-label is-large has-text-left">
+                                    <form:label path="name" cssClass="label"><s:message
+                                            code="pages.index.promise.name"/></form:label>
+                                </div>
+                                <div class="field-body is-large">
+                                    <div class="control has-icons-left">
+                                        <s:message code="pages.index.promise.name.help"
+                                                   var="promiseWhomPlaceholder"/>
+                                        <form:input path="name" cssClass="input" required="true"
+                                                    placeholder="${promiseWhomPlaceholder}"/>
+                                        <span class="icon is-small is-left"><i
+                                                class="fas fa-angle-right"></i></span>
+                                        <p class="help is-danger"></p>
+                                        <form:errors path="name" element="p"
+                                                     cssClass="help is-danger"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field" style="margin-left: 1em">
+                                <div class="field-label is-large has-text-left">
+                                    <form:label path="deadlineDate" cssClass="label"><s:message
+                                            code="pages.index.promise.deadlineDate"/></form:label>
+                                </div>
+                                <div class="field-body is-large">
+                                    <div class="control has-icons-left">
+                                        <s:message code="pages.index.promise.deadlineDate.help"
+                                                   var="deadlineDatePlaceholder"/>
+                                        <form:input path="deadlineDate" cssClass="input"
+                                                    required="true"
+                                                    placeholder="${deadlineDatePlaceholder}"
+                                                    type="date"/>
+                                        <span class="icon is-small is-left"><i
+                                                class="fas fa-calendar-day"></i></span>
+                                        <p class="help is-danger"></p>
+                                        <form:errors path="deadlineDate" element="p"
+                                                     cssClass="help is-danger"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <sec:csrfInput/>
+                        </div>
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="field ">
+                                <div class="control">
+                                    <button class="button is-success is-link is-large"
+                                            type="submit">
+                                        <s:message
+                                                code="pages.index.promise.submit"/></button>
                                 </div>
                             </div>
                         </div>
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <form:label path="name" cssClass="label"><s:message
-                                        code="pages.index.promise.name"/></form:label>
-                            </div>
-                            <div class="field-body is-large">
-                                <div class="control has-icons-left">
-                                    <s:message code="pages.index.promise.name.help"
-                                               var="promiseWhomPlaceholder"/>
-                                    <form:input path="name" cssClass="input" required="true"
-                                                placeholder="${promiseWhomPlaceholder}"/>
-                                    <span class="icon is-small is-left"><i
-                                            class="fas fa-angle-right"></i></span>
-                                    <p class="help is-danger"></p>
-                                    <form:errors path="name" element="p" cssClass="help is-danger"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field is-horizontal" style="margin-left: 1em">
-                            <div class="field-label is-normal">
-                                <form:label path="deadlineDate" cssClass="label"><s:message
-                                        code="pages.index.promise.deadlineDate"/></form:label>
-                            </div>
-                            <div class="field-body is-large">
-                                <div class="control has-icons-left">
-                                    <s:message code="pages.index.promise.deadlineDate.help"
-                                               var="deadlineDatePlaceholder"/>
-                                    <form:input path="deadlineDate" cssClass="input" required="true"
-                                                placeholder="${deadlineDatePlaceholder}"
-                                                type="date"/>
-                                    <span class="icon is-small is-left"><i
-                                            class="fas fa-calendar-day"></i></span>
-                                    <p class="help is-danger"></p>
-                                    <form:errors path="deadlineDate" element="p"
-                                                 cssClass="help is-danger"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field is-horizontal" style="margin-left: 1em">
-                            <div class="field-label is-normal">
-                                <form:label path="deadlineTime" cssClass="label"><s:message
-                                        code="pages.index.promise.deadlineTime"/></form:label>
-                            </div>
-                            <div class="field-body is-large">
-                                <div class="control has-icons-left">
-                                    <s:message code="pages.index.promise.deadlineTime.help"
-                                               var="deadlineTimePlaceholder"/>
-                                    <form:input path="deadlineTime" cssClass="input"
-                                                placeholder="${deadlineTimePlaceholder}"
-                                                type="time"/>
-                                    <span class="icon is-small is-left"><i class="fas fa-clock"></i></span>
-                                    <p class="help is-danger"></p>
-                                    <form:errors path="deadlineTime" element="p"
-                                                 cssClass="help is-danger"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field is-horizontal" style="margin-left: 1em">
-                            <div class="control">
-                                <button class="button is-success is-link" type="submit"><s:message
-                                        code="pages.index.promise.submit"/></button>
-                            </div>
-                        </div>
-                        <sec:csrfInput/>
-                        </form:form>
-                    </div>
+                    </form:form>
                     <div class="column is-2"></div>
+                </div>
+                <div class="column is-6">
+                    <h1 class="title is-centered">Don't forget!</h1>
+                    <div class="box">
+                        <div class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>At <strong>12.12.2019</strong> you promise:</p>
+                                    <p>
+                                        <strong>Dad</strong>, <strong>I will clean my room!</strong>
+                                    </p>
+                                </div>
+                                <div class="level">
+                                    <div class="level-left"></div>
+                                    <div class="level-right">
+                                        <span class="level-item"><small>Your deadline is 24.12.2019</small></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
