@@ -58,10 +58,9 @@
                     <div class="field">
                         <form:label path="rePassword" cssClass="label"><s:message code="global.re-password"/></form:label>
                         <div class="control has-icons-left">
-                            <s:message code="pages.register.form.helps.re-password" var="rePasswordPlaceholder"/>
-                            <form:password path="rePassword" cssClass="input" required="true" placeholder="${rePasswordPlaceholder}"/>
+                            <s:message code="pages.register.form.helps.re-password" var="promiseNamePlaceholder"/>
+                            <form:password path="rePassword" cssClass="input" required="true" placeholder="${promiseNamePlaceholder}"/>
                             <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
-                            <p class="help is-dange"></p>
                             <form:errors path="rePassword" element="p" cssClass="help is-danger"/>
                         </div>
                     </div>
