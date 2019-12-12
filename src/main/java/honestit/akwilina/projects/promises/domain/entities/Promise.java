@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "promises")
 @Getter @Setter @ToString(callSuper = true, exclude = {"giver", "receiver"})
-public class Promis extends BaseEntity {
+public class Promise extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
