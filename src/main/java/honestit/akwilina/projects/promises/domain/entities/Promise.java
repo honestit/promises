@@ -20,7 +20,7 @@ public class Promise extends BaseEntity {
     private User giver;
     @ManyToOne
     @JoinColumn(name = "receiver_id")
-    private User receiver;
+    private Friend receiver;
     @Column(name = "to_itself")
     private Boolean toItself;
     @Column(name = "given_at")
