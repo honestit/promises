@@ -5,5 +5,8 @@ import honestit.akwilina.projects.promises.domain.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FriendRepository extends JpaRepository<Friend, Long> {
-    Friend getOneByOwnerAndName(User user, String whom);
+
+    Friend getOneByOwnerAndName(User user, String friendName);
+
+    boolean existsByOwnerAndName(User user, String name);
 }
