@@ -24,37 +24,43 @@
                 </h1>
             </div>
             <div class="column">
-                <c:if test="${param['error'] != null}">
-                    <div class="notification is-danger">
-                        <s:message code="pages.login.form.login-error"/>
-                    </div>
-                </c:if>
+
                 <form method="post" action="/login">
                     <div class="field">
-                        <label class="label" for="username"><s:message code="global.username"/></label>
+                        <label class="label" for="username"><s:message
+                                code="global.username"/></label>
                         <div class="control has-icons-left">
+                            <s:message code="pages.login.form.help.username"
+                                       var="usernamePlaceholder"/>
                             <input type="text" id="username" name="username" required
-                                   class="input"/>
+                                   class="input" placeholder="${usernamePlaceholder}"/>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
                             </span>
-                            <p class="help"><s:message code="pages.login.form.help.username"/></p>
+                            <c:if test="${param['error'] != null}">
+                                <p class="help is-danger">
+                                    <s:message code="pages.login.form.login-error"/>
+                                </p>
+                            </c:if>
                         </div>
                     </div>
                     <div class="field">
-                        <label class="label" for="password"><s:message code="global.password"/></label>
+                        <label class="label" for="password"><s:message
+                                code="global.password"/></label>
                         <div class="control has-icons-left">
+                            <s:message code="pages.login.form.help.password"
+                                       var="passwordPlaceholder"/>
                             <input type="password" id="password" name="password" required
-                                   class="input"/>
+                                   class="input" placeholder="${passwordPlaceholder}"/>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-lock"></i>
                             </span>
-                            <p class="help"><s:message code="pages.login.form.help.password"/></p>
                         </div>
                     </div>
                     <div class="field">
                         <div class="control">
-                            <button class="button is-success is-link" type="submit"><s:message code="pages.login.form.submit"/></button>
+                            <button class="button is-success is-link" type="submit"><s:message
+                                    code="pages.login.form.submit"/></button>
                         </div>
                     </div>
                     <sec:csrfInput/>
