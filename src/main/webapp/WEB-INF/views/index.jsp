@@ -17,17 +17,17 @@
 <header>
     <jsp:include page="/WEB-INF/views/fragments/main-menu.jsp"/>
 </header>
-<sec:authorize access="hasRole('USER')">
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-6">
-                    <h1 class="title">
-                        <spring:message code="pages.index.body.title.main"/>
-                    </h1>
-                    <h2 class="subtitle">
-                        <spring:message code="pages.index.body.title.sub"/>
-                    </h2>
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column is-6">
+                <h1 class="title">
+                    <spring:message code="pages.index.body.title.main"/>
+                </h1>
+                <h2 class="subtitle">
+                    <spring:message code="pages.index.body.title.sub"/>
+                </h2>
+                <sec:authorize access="hasRole('USER')">
                     <c:if test="${param['youPromise'] != null}">
                         <div class="notification is-success">
                             You promise!
@@ -107,33 +107,36 @@
                             </div>
                         </div>
                     </form:form>
-                    <div class="column is-2"></div>
-                </div>
-                <div class="column is-6">
-                    <h1 class="title is-centered">Don't forget!</h1>
+                </sec:authorize>
+                <div class="column is-2"></div>
+            </div>
+            <div class="column is-6">
+                <h1 class="title is-centered"><spring:message code="pages.index.body.title2.main"/></h1>
+
+                <sec:authorize access="hasRole('USER')">
                     <div class="box">
                         <div class="media">
                             <div class="media-content">
                                 <div class="content">
-                                    <p>At <strong>12.12.2019</strong> you promise:</p>
+                                    <p><spring:message code="pages.index.body.promise.title" arguments="2019-12-13 12:00:00"/></p>
                                     <p>
-                                        <strong>Dad</strong>, <strong>I will clean my room!</strong>
+                                        <spring:message code="pages.index.body.promise.body" arguments="Dad,I will clean my room"/>
                                     </p>
                                 </div>
                                 <div class="level">
                                     <div class="level-left"></div>
                                     <div class="level-right">
-                                        <span class="level-item"><small>Your deadline is 24.12.2019</small></span>
+                                        <span class="level-item"><small><spring:message code="pages.index.body.promise.deadline" arguments="2019-12-13 12:00:00"/></small></span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </sec:authorize>
             </div>
         </div>
-    </section>
-</sec:authorize>
+    </div>
+</section>
 <footer class="footer">
     <jsp:include page="/WEB-INF/views/fragments/footer.jsp"/>
 </footer>
