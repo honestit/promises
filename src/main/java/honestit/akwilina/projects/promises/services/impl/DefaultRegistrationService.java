@@ -7,14 +7,18 @@ import honestit.akwilina.projects.promises.domain.repositories.RoleRepository;
 import honestit.akwilina.projects.promises.domain.repositories.UserRepository;
 import honestit.akwilina.projects.promises.dtos.RegistrationDataDTO;
 import honestit.akwilina.projects.promises.services.RegistrationService;
+import honestit.akwilina.projects.promises.validation.groups.BusinessLogic;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.Valid;
 
 @Service
-@Transactional @Slf4j
+@Transactional @Slf4j @Validated
 public class DefaultRegistrationService implements RegistrationService {
 
     private final PasswordEncoder passwordEncoder;
@@ -30,8 +34,8 @@ public class DefaultRegistrationService implements RegistrationService {
         this.modelMapper = modelMapper;
     }
 
-    @Override
-    public void register(RegistrationDataDTO registrationData) {
+    @Override @Validated({BusinessLogic.class})
+    public void register(@Valid RegistrationDataDTO registrationData) {
         log.debug("Registration data to create user: {}", registrationData);
         User user = modelMapper.map(registrationData, User.class);
         log.debug("User after mapping from registrationData: {}", user);
