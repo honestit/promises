@@ -111,27 +111,34 @@
                 <div class="column is-2"></div>
             </div>
             <div class="column is-6">
-                <h1 class="title is-centered"><spring:message code="pages.index.body.title2.main"/></h1>
+                <h1 class="title is-centered"><spring:message
+                        code="pages.index.body.title2.main"/></h1>
 
                 <sec:authorize access="hasRole('USER')">
-                    <div class="box">
-                        <div class="media">
-                            <div class="media-content">
-                                <div class="content">
-                                    <p><spring:message code="pages.index.body.promise.title" arguments="2019-12-13 12:00:00"/></p>
-                                    <p>
-                                        <spring:message code="pages.index.body.promise.body" arguments="Dad,I will clean my room"/>
-                                    </p>
-                                </div>
-                                <div class="level">
-                                    <div class="level-left"></div>
-                                    <div class="level-right">
-                                        <span class="level-item"><small><spring:message code="pages.index.body.promise.deadline" arguments="2019-12-13 12:00:00"/></small></span>
+                    <c:forEach items="${upcomingPromises}" var="promiseData">
+                        <div class="box">
+                            <div class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p><spring:message code="pages.index.body.promise.title"
+                                                           arguments="${promiseData.givenAt}"/></p>
+                                        <p>
+                                            <spring:message code="pages.index.body.promise.body"
+                                                            arguments="${promiseData.receiverName},${promiseData.name}"/>
+                                        </p>
+                                    </div>
+                                    <div class="level">
+                                        <div class="level-left"></div>
+                                        <div class="level-right">
+                                            <span class="level-item"><small><spring:message
+                                                    code="pages.index.body.promise.deadline"
+                                                    arguments="${promiseData.deadline}"/></small></span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </sec:authorize>
             </div>
         </div>
