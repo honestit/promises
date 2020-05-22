@@ -121,7 +121,7 @@
                                 <div class="media-content">
                                     <div class="content">
                                         <p><spring:message code="pages.index.body.promise.title"
-                                                           arguments="${promiseData.givenAt}"/></p>
+                                                           arguments="${promiseData.formattedGivenAt()}"/></p>
                                         <p>
                                             <spring:message code="pages.index.body.promise.body"
                                                             arguments="${promiseData.receiverName},${promiseData.name}"/>
@@ -132,7 +132,7 @@
                                         <div class="level-right">
                                             <span class="level-item"><small><spring:message
                                                     code="pages.index.body.promise.deadline"
-                                                    arguments="${promiseData.deadline}"/></small></span>
+                                                    arguments="${promiseData.formattedDeadline()}"/></small></span>
                                         </div>
                                     </div>
                                 </div>

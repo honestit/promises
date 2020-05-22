@@ -81,6 +81,7 @@ public class DefaultUserService implements UserService {
     public List<PromiseDataDTO> getUpcomingPromises() {
         User user = userRepository.getByUsername(SecurityUtils.getUsername());
         List<Promise> upcomingPromises = promiseRepository.findAllByGiverAndStateOrderByDeadlineAscGivenAtAsc(user, PromiseState.NEW);
+        ModelMapper modelMapper = new ModelMapper(); // Using own model mapper for default strategy
         return upcomingPromises.stream().map(p -> modelMapper.map(p, PromiseDataDTO.class)).collect(Collectors.toList());
     }
 
