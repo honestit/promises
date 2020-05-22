@@ -3,9 +3,11 @@ package honestit.akwilina.projects.promises.services.impl;
 import honestit.akwilina.projects.promises.domain.entities.Friend;
 import honestit.akwilina.projects.promises.domain.entities.Promise;
 import honestit.akwilina.projects.promises.domain.entities.User;
+import honestit.akwilina.projects.promises.domain.entities.enums.PromiseState;
 import honestit.akwilina.projects.promises.domain.repositories.FriendRepository;
 import honestit.akwilina.projects.promises.domain.repositories.PromiseRepository;
 import honestit.akwilina.projects.promises.domain.repositories.UserRepository;
+import honestit.akwilina.projects.promises.dtos.GiveMassPromiseDTO;
 import honestit.akwilina.projects.promises.dtos.GivePromiseDTO;
 import honestit.akwilina.projects.promises.dtos.PromiseDataDTO;
 import honestit.akwilina.projects.promises.services.FriendsService;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,9 +53,34 @@ public class DefaultUserService implements UserService {
 
     @Override
     @Transactional
+    public void givePromises(GiveMassPromiseDTO giveMassPromiseDTO) {
+        User user = userRepository.getByUsername(SecurityUtils.getUsername());
+        log.debug("Adding promises for user: {}", user);
+        List<Friend> friends = friendRepository.findAllByOwnerAndNameIn(user, giveMassPromiseDTO.getFriends()
+                .stream()
+                .map(GiveMassPromiseDTO.FriendNameAndDeadline::getName)
+                .collect(Collectors.toList()));
+        Map<String, Friend> friendsMap = friends.stream().collect(Collectors.toMap(Friend::getName, f -> f));
+        log.debug("Saving {} promises", friends.size());
+        giveMassPromiseDTO.getFriends()
+                .stream()
+                .map(friendNameAndDeadline -> {
+                    GivePromiseDTO givePromiseDTO = new GivePromiseDTO();
+                    givePromiseDTO.setDeadlineDate(friendNameAndDeadline.getDeadlineDate());
+                    givePromiseDTO.setName(giveMassPromiseDTO.getWhat());
+                    givePromiseDTO.setWhom(friendNameAndDeadline.getName());
+                    return givePromiseDTO;
+                })
+                .map(givePromiseDTO -> createPromise(givePromiseDTO, user, friendsMap.get(givePromiseDTO.getWhom())))
+                .forEach(promiseRepository::save);
+        log.debug("{} promises saved!", friends.size());
+    }
+
+    @Override
+    @Transactional
     public List<PromiseDataDTO> getUpcomingPromises() {
         User user = userRepository.getByUsername(SecurityUtils.getUsername());
-        List<Promise> upcomingPromises = promiseRepository.findAllUpcomingPromises(user, LocalDateTime.now());
+        List<Promise> upcomingPromises = promiseRepository.findAllByGiverAndStateOrderByDeadlineAscGivenAtAsc(user, PromiseState.NEW);
         return upcomingPromises.stream().map(p -> modelMapper.map(p, PromiseDataDTO.class)).collect(Collectors.toList());
     }
 
@@ -62,6 +90,7 @@ public class DefaultUserService implements UserService {
         promise.setReceiver(friend);
         promise.setName(givePromiseDTO.getName());
         promise.setGivenAt(LocalDateTime.now());
+        promise.setState(PromiseState.NEW);
         if (givePromiseDTO.getDeadlineTime() != null) {
             promise.setDeadline(LocalDateTime.of(givePromiseDTO.getDeadlineDate(), givePromiseDTO.getDeadlineTime()));
         } else {

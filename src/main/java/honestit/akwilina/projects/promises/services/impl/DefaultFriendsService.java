@@ -4,12 +4,16 @@ import honestit.akwilina.projects.promises.domain.entities.Friend;
 import honestit.akwilina.projects.promises.domain.entities.User;
 import honestit.akwilina.projects.promises.domain.repositories.FriendRepository;
 import honestit.akwilina.projects.promises.domain.repositories.UserRepository;
+import honestit.akwilina.projects.promises.dtos.UserFriendDTO;
 import honestit.akwilina.projects.promises.services.FriendsService;
 import honestit.akwilina.projects.promises.utils.bean.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @Slf4j @RequiredArgsConstructor
 public class DefaultFriendsService implements FriendsService {
@@ -34,5 +38,16 @@ public class DefaultFriendsService implements FriendsService {
         friend.setOwner(user);
         friendRepository.save(friend);
         log.debug("Friend {} added to user {}", friend, user);
+    }
+
+    @Override
+    public List<UserFriendDTO> getFriends() {
+        List<Friend> friends = friendRepository.findAllByOwnerUsername(SecurityUtils.getUsername());
+        return friends.stream().map(entity -> {
+            UserFriendDTO dto = new UserFriendDTO();
+            dto.setId(entity.getId());
+            dto.setName(entity.getName());
+            return dto;
+        }).collect(Collectors.toList());
     }
 }

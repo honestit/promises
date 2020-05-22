@@ -1,5 +1,6 @@
 package honestit.akwilina.projects.promises.services;
 
+import honestit.akwilina.projects.promises.dtos.GiveMassPromiseDTO;
 import honestit.akwilina.projects.promises.dtos.GivePromiseDTO;
 import honestit.akwilina.projects.promises.dtos.PromiseDataDTO;
 
@@ -10,4 +11,6 @@ public interface UserService {
     void givePromise(GivePromiseDTO givePromiseDTO);
 
     List<PromiseDataDTO> getUpcomingPromises();
+
+    void givePromises(GiveMassPromiseDTO givenPromisesDTO);
 }
