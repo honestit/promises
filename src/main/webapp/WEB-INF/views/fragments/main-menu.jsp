@@ -53,6 +53,15 @@
                     </sec:authorize>
                 </div>
             </div>
+            <div class="navbar-item">
+                <a class="link" href="?lang=pl">
+                    <strong>PL</strong>
+                </a>&nbsp|&nbsp
+                <a class="link" href="?lang=en">
+                    <strong>EN</strong>
+                </a>
+
+            </div>
         </div>
     </div>
 </nav>
