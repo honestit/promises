@@ -1,11 +1,13 @@
 package honestit.akwilina.projects.promises.domain.entities;
 
+import honestit.akwilina.projects.promises.domain.entities.enums.PromiseState;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "promises")
@@ -27,4 +29,9 @@ public class Promise extends BaseEntity {
     private LocalDateTime givenAt;
     @Column(name = "deadline")
     private LocalDateTime deadline;
+    @Enumerated(EnumType.STRING)
+    private PromiseState state = PromiseState.NEW;
+
+    @OneToMany
+    private Set<Friend> friends;
 }
