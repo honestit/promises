@@ -27,6 +27,7 @@ public class StarterDataCreator implements ApplicationRunner {
     @Transactional
     public void run(ApplicationArguments args) throws Exception {
         createRoles();
+        createUsers();
     }
 
     private void createRoles() {
